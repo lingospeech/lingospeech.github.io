@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.container {
+    margin: 20px;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card-01 {
+    background: #50a8ff00;
+    position: relative;
+    flex: 1;
+    max-width: 50%;
+    height: auto;
+    margin: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 60px;
+}
+
+.card-01 h2 {
+    margin-bottom: 25px;
+    color: white;
+    font-size: 45px;
+}
+
+.card-01 p {
+    margin-bottom: 10px;
+    color: white;
+    font-size: 22px;
+}
+
+.card-01 button.btn {
+    margin:30px 0px;
+    background-color: #ff7f50;
+    color: white;
+    border: none;
+    width:200px;
+    padding: 20px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 20px;
+}
+
+.card-01 button.btn:hover {
+    background-color: #e65535;
+}
+
+
+
+.card-02{
+    background:#50a8ff00;
+    position:relative;
+    flex:1;
+    max-width:50%;
+    height: 400px;
+    margin:10px;
+    border-radius: 5px;
+    padding: 0 40px;
+}
+
+.card-02 img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 20px;
+}
+
+
+
+
+@media (max-width:800px){
+    .card-01 {
+        position: relative;
+        flex: 1;
+        max-width: 100%;
+        height: auto;
+        margin: 10px;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 0px;
+    }
+    .card-02{
+        flex:100%;
+        max-width:600px;
+        padding: 0px;
+    }
+}
+
+
+
+body {
+    background-color: #3600a3;
+  }
