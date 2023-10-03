@@ -1,6 +1,6 @@
 function connectWebSocketDownload() {
 
-    const websocketClient2 = new WebSocket("wss://openlanguage.glitch.me/");
+    const websocketClient2 = new WebSocket("wss://symphonious.glitch.me/");
   
     websocketClient2.onopen = function(event) {
       websocketClient2.send("refresh");  
