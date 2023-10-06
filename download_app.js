@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const downloadButton = document.getElementById('downloadButton');
     downloadButton.addEventListener('click', function() {
       const downloadLink = document.createElement('a');
-      downloadLink.href = 'https://github.com/symphonious/symphonious.github.io/releases/download/1.0.0/streamtranslator-x64.zip'; 
+      downloadLink.href = 'https://github.com/symphonious/symphonious.github.io/releases/download/1.0.0/appstreamtranslator-x64.zip'; 
       downloadLink.download = 'streamtranslator-win64.zip'; 
 
       downloadLink.click();
