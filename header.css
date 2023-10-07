@@ -94,7 +94,9 @@ li.multiple-buttons a:hover {
 
 
 @media(max-width:800px){
-
+  #downloadButton{
+    display:none;
+  }
 
   .logo-link{
     position:absolute;
