@@ -7,9 +7,10 @@
     <title>live stream translator</title>
     <meta name="description" content="Watch all gaming streams in all languages in real time">
     <meta name="keywords" content="live stream translator, real time translator, videocalls translator">
-    <link rel="stylesheet" href="header.css">
-    <link rel="stylesheet" href="container_style.css">
+    <link rel="stylesheet" href="upload_image.css">
+    <link rel="stylesheet" href="header_image.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
 <body>
     <nav>
@@ -18,37 +19,68 @@
             <i class="fas fa-bars"></i>
             <i class="fas fa-times"></i>
         </label>
-
-        <a href="index.html" class="logo-link">
+        <a href="./index.html" class="logo-link">
             <div class="logo-container">
-                <img src="images/circlelogo.png" alt="Logo" class="logo">
+                <img src="./images/weblogo_2.png" alt="Logo" class="logo">
             </div>
-            <div class="logo-name">STREAM LANGUAGES</div>
+            <div class="logo-name">NFT Generator</div>
         </a>
+        
+        <ul>
+            <li class="menuPage"><a id="social_network" href="https://twitter.com/nftaigenerator" target="_blank"><span><i class="fab fa-x-twitter"></i></span> Twitter</a></li>
+            <li class="menuPage"><a id="walletButton"><span><i class="fas fa-user"></i></span> Sign In</a></li>
+        </ul>
     </nav>
+	
+    <div class="global-container"> 
+        <div class="container">
+            <div class="button-container">
+                <button class="back-button-page1"><span><i class="fas fa-dollar-sign"></i></span> Earnings</button>
+                <button class="next-button-page1">Create NFT</button>
+            </div>
+            <p>Make money training AI NFT generator</p>
+            <p>Request affiliation:</p>
+            <input type="text" id="request-affiliation" class="request-affiliation" placeholder="Twitter @username">
+            <button class="send-request">Send request</button>
 
-    
-    
-    <div class="container">
-        <div class="row">
-            <div class="card-01">
-                <h2>Live Stream Translator</h2>
-                <p>Unifying all live streams 
-                </p>
-                <p>Watch and listen to all gaming streams in different languages in real time
-                </p>
-                <p>Only available for windows
-                </p>
-                <button id="downloadButton" class="btn">Get Started</button>
+            <input type="text" id="descriptionInput" class="custom-input" placeholder="Describe the content">
+            <input type="file" id="file" accept="image/*" hidden>
+            <div class="img-area" data-img="">
+                <i class='bx bxs-cloud-upload icon'></i>
+                <h3>Upload NFT<span> <i class="fas fa-image"></i></span></h3>
+                <p>Image size must be less than <span>1MB</span></p>
             </div>
-            <div class="card-02">
-                <img src="images/dashboard.png" alt="Image" />
-            </div>
+            <p class="check-message"></p>
+            <button class="select-image">Select Image</button>
+            <button class="upload-image">Upload image</button>
+
+            
         </div>
-    </div>
+    
+        <div class="container-generate-image">
+            <div class="button-container">
+                <button class="back-button-page2"><span><i class="fas fa-dollar-sign"></i></span> Earnings</button>
+                <button class="next-button-page2">Create NFT</button>
+            </div>
+            <input type="text" id="promptInputId" class="prompt-input" placeholder="Input description">
+            <div class="img-area-generated" data-img="">
+                <h3 id="image-message">Generating NFT...</h3>
+                <p id="image-message-2"><a href="./index.html">Get subscription</a></p>
+            </div>
+            <p id="check-message-page2"></p>
+            <button id="generate-image" class="generate-image">Generate NFT</button>
 
-   <script src="download_app.js"></script>
-   <script src="refresh_connection.js"></script>
+            
+        </div>
+
+
+
+
+    </div>
+	
+	
+	<script src="upload_image.js"></script>
+    <script src="connect_to_server.js"></script>
 
 </body>
 </html>
