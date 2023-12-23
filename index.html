@@ -2,15 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="https://raw.githubusercontent.com/symphonious/manylanguages/main/resources/favicon.ico" type="image/x-icon">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>live stream translator</title>
-    <meta name="description" content="Watch all gaming streams in all languages in real time">
-    <meta name="keywords" content="live stream translator, real time translator, videocalls translator">
-    <link rel="stylesheet" href="upload_image.css">
-    <link rel="stylesheet" href="header_image.css">
+    <meta name="description" content="Real time translator, translate videos and streams">
+    <meta name="keywords" content="stream languages, real time translator, video translator">
+    
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta property="og:site_name" content="Stream Languages">
+    <meta property="og:url" content="https://streamlanguages.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Multilingual Streaming">
+    <meta property="og:description" content="Real time translator for streaming">
+    <meta property="og:image" content="https://raw.githubusercontent.com/symphonious/manylanguages/main/resources/og-image.png">
+
+    <title>StreamLanguages</title>
+    
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="container_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" >
+    
+    
+
 </head>
 <body>
     <nav>
@@ -19,69 +33,37 @@
             <i class="fas fa-bars"></i>
             <i class="fas fa-times"></i>
         </label>
-        <a href="./index.html" class="logo-link">
+
+        <a href="index.html" class="logo-link">
             <div class="logo-container">
-                <img src="./images/weblogo_2.png" alt="Logo" class="logo">
+                <img src="images/circlelogo.png" alt="Logo" class="logo">
             </div>
-            <div class="logo-name">NFT Generator</div>
+            <div class="logo-name">STREAMLANGUAGES</div>
         </a>
-        
-        <ul>
-            <li class="menuPage"><a id="social_network"><span><i class="fab fa-x-twitter"></i></span> Twitter</a></li>
-            <li class="menuPage"><a id="walletButton"><span><i class="fas fa-user"></i></span> Sign In</a></li>
-        </ul>
     </nav>
-	
-    <div class="global-container"> 
-        <div class="container">
-            <div class="button-container">
-                <button class="back-button-page1"><span><i class="fas fa-dollar-sign"></i></span> Earnings</button>
-                <button class="next-button-page1">Create NFT</button>
-            </div>
-            <p>Make money training AI NFT generator</p>
-            <p>Request affiliation:</p>
-            <input type="text" id="request-affiliation" class="request-affiliation" placeholder="Twitter @username">
-            <button class="send-request">Send request</button>
 
-            <input type="text" id="descriptionInput" class="custom-input" placeholder="Describe the content">
-            <input type="file" id="file" accept="image/*" hidden>
-            <div class="img-area" data-img="">
-                <i class='bx bxs-cloud-upload icon'></i>
-                <h3>Upload NFT<span> <i class="fas fa-image"></i></span></h3>
-                <p>Image size must be less than <span>1MB</span></p>
-            </div>
-            <p class="check-message"></p>
-            <button class="select-image">Select Image</button>
-            <button class="upload-image">Upload image</button>
-
-            
-        </div>
     
-        <div class="container-generate-image">
-            <div class="button-container">
-                <button class="back-button-page2"><span><i class="fas fa-dollar-sign"></i></span> Earnings</button>
-                <button class="next-button-page2">Create NFT</button>
+    
+    <div class="container">
+        <div class="row">
+            <div class="card-01">
+                <h2>Real Time Translator for streaming</h2>
+                <p>Watch streams in any language
+                </p>
+                <p>Translate videos in real time
+                </p>
+                <p>10+ languages
+                </p>
+                <button id="downloadButton" class="btn">Free download</button>
             </div>
-            <input type="text" id="promptInputId" class="prompt-input" placeholder="Input description">
-            <div class="img-area-generated" data-img="">
-                <h3 id="image-message">Generating NFT...</h3>
-                <p id="image-message-2"><a href="./index.html">Get subscription</a></p>
+            <div class="card-02">
+                <img class="card-image" src="images/image_app5.png" alt="Image" />
             </div>
-            <p id="check-message-page2"></p>
-            <button id="generate-image" class="generate-image">Generate NFT</button>
-
-            
         </div>
-
-
-
-
     </div>
-	
-	
-	<script src="upload_image.js"></script>
-    <script src="connect_to_server.js"></script>
-	<script src="refresh_connection.js"></script>
+
+   <script src="download_app.js"></script>
+   <script src="refresh_connection.js"></script>
 
 </body>
 </html>
