@@ -1,10 +1,9 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     const downloadButton = document.getElementById('downloadButton');
     downloadButton.addEventListener('click', function() {
       const downloadLink = document.createElement('a');
-      downloadLink.href = 'https://github.com/symphonious/streamclient/releases/download/1-0-1/streamtranslator-win-x64.zip'; 
-      downloadLink.download = 'streamtranslator-win64.zip'; 
+      downloadLink.href = 'https://github.com/symphonious/manylanguages/releases/download/streamlanguages-1-0-0/streamlanguages.zip'; 
+      downloadLink.download = 'streamlanguages.zip'; 
 
       downloadLink.click();
       console.log("download");
