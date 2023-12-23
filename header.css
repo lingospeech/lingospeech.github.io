@@ -14,7 +14,7 @@ body{
 }
 
 nav{
-  background:#3600a3;
+  background:#141461;
   height:80px;
   width:100%;
 
@@ -62,7 +62,7 @@ nav ul li{
 
 nav ul li.multiple-buttons a{
   color:rgb(255, 255, 255);
-  background: #ff7f50;
+  background: #11d10b;
   font-size:15px;
   padding:13px 40px;
   border-radius:3px;
@@ -94,10 +94,10 @@ li.multiple-buttons a:hover {
 
 
 @media(max-width:800px){
+
   #downloadButton{
     display:none;
   }
-
   .logo-link{
     position:absolute;
     display:flex;
@@ -174,40 +174,6 @@ li.multiple-buttons a:hover {
   
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
