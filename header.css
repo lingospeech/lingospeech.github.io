@@ -14,9 +14,13 @@ body{
 }
 
 nav{
-  background:#14146100;
+  /*background:#14146100;*/
+  background:#26269100;
   height:80px;
   width:100%;
+
+  padding-top:4vh;
+  padding-bottom:8vh;
 
   /*position: sticky;*/
   top: 0;
@@ -28,19 +32,18 @@ nav{
 .logo-link{
   position:absolute;
   display:flex;
-  padding:0px 45px;
-  left:14px;
-  top:25px;
+  padding:4vh 7vh;
+  
   align-items: center;
   user-select: none;
 }
 .logo {
   display:flex;
-  height: 40px;
-  padding:0 10px;
+  height: 6vh;
+  padding:0 1vh;
 }
 .logo-name {
-  font-size: 20px; 
+  font-size: 3vh; 
   color: #ffffff; 
 }
 
@@ -103,11 +106,12 @@ li.multiple-buttons a:hover {
   .logo-link{
     position:absolute;
     display:flex;
-    padding:0px 15px;
+    padding:15px 15px;
     left:2px;
     top:20px;
     align-items: center;
   }
+  
   .logo-name {
     font-size: 20px; 
     color: #ffffff; 
@@ -131,7 +135,6 @@ li.multiple-buttons a:hover {
     left:-100%;
     text-align:center;
   }
-
 
 
 
