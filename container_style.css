@@ -9,7 +9,7 @@ body {
 }
 
 .container {
-    margin: 20px;
+    margin: 3vh;
 }
 
 .row {
@@ -25,38 +25,40 @@ body {
     flex: 1;
     max-width: 50%;
     height: auto;
-    margin: 10px;
+    margin: 1vh;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 60px;
+    padding-left: 5vh;
+    padding-right: 5vh;
+    padding-top: 7vh;
 }
 
 .card-01 h2 {
     margin-bottom: 25px;
     color: white;
-    font-size: 45px;
+    font-size: 6vh;
 }
 
 .card-01 p {
     margin-bottom: 10px;
     color: white;
-    font-size: 22px;
+    font-size: 3vh;
 }
+
 
 .card-01 button.btn {
     margin:30px 0px;
     background-color: #003bfd;
     color: white;
     border: none;
-    width:200px;
-    padding: 20px 10px;
+    width:30vh;
+    padding: 3vh 2vh;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    font-size: 20px;
+    font-size: 3vh;
+    font-weight: bold;
 }
 
 .card-01 button.btn:hover {
@@ -97,6 +99,8 @@ body {
 
 
 
+
+
 @media (max-width:800px){
     .card-01 {
         position: relative;
@@ -109,7 +113,7 @@ body {
         flex-direction: column;
         padding-left: 0px;
         padding-right: 0px;
-        padding-top: 0px;
+        padding-top: 40px;
     }
     .card-02{
         flex:100%;
@@ -117,3 +121,121 @@ body {
         padding: 0px;
     }
 }
+
+
+.t_body{
+    font-size: 35px;
+    font-weight: bold;
+    color:white;
+}
+
+
+
+
+
+
+
+
+
+
+/* Estilo para hacer las imágenes circulares */
+.img-container {
+    
+    text-align: center;
+
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 4vh;
+    padding-right: 4vh;
+    padding-top: 6vh;
+    padding-bottom: 20vh;
+}
+
+
+
+.img-container img {
+    width: 10vh;
+    height: 10vh;
+    border-radius: 50%;
+    margin: 2vh;
+}
+
+/* Estilo para el diseño responsivo */
+@media only screen and (max-width: 400px) {
+    .img-container {
+        justify-content: center; /* Centra las imágenes en una sola columna */
+    }
+
+    .language-container {
+        margin: 10px 5px; /* Ajusta el margen según sea necesario */
+    }
+}
+
+@media only screen and (min-width: 401px) {
+    .img-container {
+        justify-content: space-between; /* Distribuye las imágenes en varias columnas */
+    }
+}
+
+/* Estilo para los nombres de idiomas */
+.language-name {
+    min-width:150px;
+    padding-top: 5px;
+    padding-left: 20px; /* Ajusta según sea necesario */
+    padding-right: 20px; /* Ajusta según sea necesario */
+    padding-bottom: 20px;
+    color: #ffffff;
+    font-size: 3vh;
+    font-weight: bold; 
+}
+
+
+
+
+
+
+
+
+.language-container {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 4vh;
+    padding-right: 4vh;
+    padding-top: 20vh;
+    padding-bottom: 2vh;
+}
+.language-section {
+    color: #ffffff;
+    font-size: 4vh;
+    font-weight: bold; 
+}
+
+
+
+.language-description-container {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 4vh;
+    padding-right: 4vh;
+    padding-top: 1vh;
+    padding-bottom: 6vh;
+}
+.language-description {
+    color: #ffffff;
+    font-size: 3vh;
+    font-weight: bold; 
+
+    padding-left: 4vh;
+    padding-right: 4vh;
+}
+
+
+
+
+
+
