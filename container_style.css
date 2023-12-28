@@ -63,6 +63,7 @@ body {
 
 .card-01 button.btn:hover {
     background-color: #1100ac;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 40px rgba(17, 0, 172, 0.5);
 }
 
 
