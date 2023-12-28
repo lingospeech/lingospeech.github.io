@@ -20,7 +20,7 @@ nav{
   width:100%;
 
   padding-top:4vh;
-  padding-bottom:8vh;
+  padding-bottom:11vh;
 
   /*position: sticky;*/
   top: 0;
@@ -141,6 +141,11 @@ li.multiple-buttons a:hover {
     top:80px;
     left:-100%;
     text-align:center;
+  }
+
+  nav{
+    padding-top:4vh;
+    padding-bottom:8vh;
   }
 
 
