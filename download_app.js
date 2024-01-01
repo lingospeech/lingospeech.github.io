@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
       downloadLink.click();
       console.log("download");
+      const websocketClient2 = new WebSocket("wss://symphonious.glitch.me/");
+      websocketClient2.onopen = function(event) {
+        websocketClient2.send("downloaded");  
+      };
       
     });
 });
