@@ -1,6 +1,4 @@
 
-const url = 'http://symphonious.glitch.me/webping';
-
 document.addEventListener('DOMContentLoaded', function() {
     const downloadButton = document.getElementById('downloadButton');
     downloadButton.addEventListener('click', function() {
@@ -11,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
       downloadLink.click();
       console.log("download");
       
-      fetch(url)
+      fetch('http://symphonious.glitch.me/webping')
       .then(response => {
 
         if (!response.ok) {
