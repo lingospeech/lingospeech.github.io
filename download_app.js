@@ -9,18 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
       downloadLink.click();
       console.log("download");
       
-      fetch('http://symphonious.glitch.me/webping')
-      .then(response => {
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        console.log(`Ping done`);
-      })
-      .catch(error => {
-        console.error('Error ping:', error);
-      });
+      
+      fetch('http://symphonious.glitch.me/webping', { method: 'GET' });
 
 
         
