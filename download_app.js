@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log("download");
       
       
-      fetch('https://symphonious.glitch.me/webping', { method: 'GET' });
+      fetch('https://symphonious.glitch.me/apidownload', { method: 'GET' });
 
 
         
