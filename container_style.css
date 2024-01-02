@@ -58,12 +58,12 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: 3vh;
-    font-weight: bold;
 }
 
 .card-01 button.btn:hover {
     background-color: #1100ac;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 40px rgba(17, 0, 172, 0.5);
+
 }
 
 
@@ -206,7 +206,7 @@ body {
     flex-wrap: wrap;
     padding-left: 4vh;
     padding-right: 4vh;
-    padding-top: 20vh;
+    padding-top: 5vh;
     padding-bottom: 2vh;
 }
 .language-section {
@@ -239,5 +239,40 @@ body {
 
 
 
+
+
+
+
+.video-title {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 4vh;
+    padding-right: 4vh;
+    padding-top: 20vh;
+    padding-bottom: 2vh;
+}
+
+
+
+.video-container {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 4vh;
+    padding-right: 4vh;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    user-select: none;
+}
+
+iframe {
+    width: 100%;
+    max-width: 800px;
+    height: 450px;
+    border: 2px solid #ccc;
+}
 
 
