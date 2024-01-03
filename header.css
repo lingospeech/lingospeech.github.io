@@ -102,7 +102,9 @@ li.multiple-buttons a:hover {
   display:none;
 }
 
-
+#desktop{
+  display:none;
+}
 
 
 @media(max-width:800px){
@@ -110,6 +112,11 @@ li.multiple-buttons a:hover {
   #downloadButton{
     display:none;
   }
+  #desktop{
+    display:flex;
+  }
+
+  
   .logo-link{
     position:absolute;
     display:flex;
