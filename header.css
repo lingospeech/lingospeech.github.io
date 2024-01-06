@@ -19,8 +19,8 @@ nav{
   height:80px;
   width:100%;
 
-  padding-top:4vh;
-  padding-bottom:11vh;
+  padding-top:20px;
+  padding-bottom:20px;
 
   /*position: sticky;*/
   top: 0;
@@ -29,28 +29,28 @@ nav{
 
 
 
+
 .logo-link{
   position:absolute;
   display:flex;
-  padding:4vh 7vh;
-  
+  padding:15px 60px;
   align-items: center;
   user-select: none;
 }
+
+
 .logo {
   display:flex;
-  /*
-  height: 6vh;
-  padding:0 1vh;
-  */
 
-  width: 5vh;
-  height: 5vh;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  margin: 2vh;
+  margin: 10px;
 }
+
+
 .logo-name {
-  font-size: 3vh; 
+  font-size: 20px; 
   color: #ffffff; 
 }
 
@@ -102,12 +102,12 @@ li.multiple-buttons a:hover {
   display:none;
 }
 
+
 #desktop{
   display:none;
 }
 
-
-@media(max-width:800px){
+@media(max-width:1024px){
 
   #downloadButton{
     display:none;
@@ -116,7 +116,7 @@ li.multiple-buttons a:hover {
     display:flex;
   }
 
-  
+
   .logo-link{
     position:absolute;
     display:flex;
@@ -143,7 +143,7 @@ li.multiple-buttons a:hover {
   ul{
     position:fixed;
     width:100%;
-    height:100vh;
+    height:20px;
     background:#3600a380;
     top:80px;
     left:-100%;
@@ -151,10 +151,9 @@ li.multiple-buttons a:hover {
   }
 
   nav{
-    padding-top:4vh;
-    padding-bottom:8vh;
+    padding-top:5px;
+    padding-bottom:5px;
   }
-
 
 
 
@@ -194,6 +193,10 @@ li.multiple-buttons a:hover {
   
   
 }
+
+
+
+
 
 
 
