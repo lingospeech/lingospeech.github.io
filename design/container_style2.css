@@ -59,11 +59,13 @@ body {
     border: 1px solid #dddddd00;
     padding: 15px;
     text-align: center;
+    background-color: rgba(255, 0, 0, 0);
   }
 
   .card img {
     width: 100%; 
     height: auto; 
+    border-radius: 20px;
   }
   .full-width iframe {
     width: 100%; 
@@ -74,25 +76,61 @@ body {
     height: 315px; 
   }
 
+  .buttons-container {
+    display: flex;
+    justify-content: flex-start; 
+    margin-top: 10px; 
+  }
+
   .btn {
       display:block;
-      margin:30px 0px;
-      background-color: #3c45c8;
-      color: white;
+      margin-top:30px;
+      margin-bottom:30px;
+      margin-right:10px;
       border: none;
-      width:200px;
-      padding: 20px 5px;
+      background: linear-gradient(to bottom right, #5e6eff, #1834cf);
+      color: white;
+      padding: 15px 20px;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s;
-      font-size: 20px;
+      font-size:16px;
+      font-weight: bold;
+      
+      width: 100%;
+      max-width: 200px;
+      box-sizing: border-box;
   }
+
+  .btn2 {
+    display:block;
+    margin-top:30px;
+    margin-bottom:30px;
+    margin-right:10px;
+    border: 1px solid #ffffff;
+    background: #00000000;
+    color: rgb(255, 255, 255);
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size:16px;
+    font-weight: bold;
+    width: 100%;
+    max-width: 200px;
+    box-sizing: border-box;
+}
 
   .btn:hover {
       background-color: #1100ac;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 40px rgba(17, 0, 172, 0.5);
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 40px rgba(67, 46, 255, 0.671);
 
   }
+  .btn2:hover {
+    background-color: #0000006b;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 40px rgba(17, 0, 172, 0.5);
+
+}
 
   
 
@@ -121,12 +159,16 @@ body {
       font-weight: bold; 
   }
 
+  .video-container{
+    padding-top:30px;
+  }
+
   #desktop{
       display:none;
   }
 
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 800px) {
 
     .container {
       padding: 0 10px;
@@ -152,3 +194,5 @@ body {
       flex: 0 0 100%; 
     }
   }
+
+
