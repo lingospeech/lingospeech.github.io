@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /design/
+Disallow: /languages/
+Disallow: /resources/
+Allow: /index.html
+
+Sitemap: https://streamlanguages.com/sitemap.xml
