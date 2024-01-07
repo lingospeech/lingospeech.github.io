@@ -1,0 +1,316 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-size:20px;
+}
+
+body {
+    background: radial-gradient(ellipse at center, #2d2dac 0%, #141461 100%);
+}
+
+.container {
+    margin: 50px;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card-01 {
+    background: #50a8ff00;
+    position: relative;
+    flex: 1;
+    max-width: 50%;
+    height: auto;
+    margin: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+}
+
+
+.card-01 h2 {
+    margin-bottom: 25px;
+    color: white;
+    font-size: 2em;
+}
+
+.card-01 p {
+    margin-bottom: 10px;
+    color: white;
+}
+
+
+.card-01 button.btn {
+    margin:30px 0px;
+    background-color: #3c45c8;
+    color: white;
+    border: none;
+    width:40%;
+    padding: 20px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1em;
+}
+
+.card-01 button.btn:hover {
+    background-color: #1100ac;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 40px rgba(17, 0, 172, 0.5);
+
+}
+
+
+
+.card-02{
+    background:#50a8ff00;
+    position:relative;
+    flex:1;
+    max-width:50%;
+    height: auto;
+    margin-top:50px;
+    margin-bottom:50px;
+    border-radius: 5px;
+    padding-left:50px;
+    padding-right:30px;
+    user-select: none;
+}
+
+
+
+
+.card-02 img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 20px;
+}
+
+
+.card-image {
+    /*opacity: 0.7;*/
+    filter: brightness(1.3);
+}
+
+
+
+
+
+
+
+
+.t_body{
+    font-size: 35px;
+    font-weight: bold;
+    color:white;
+}
+
+
+
+
+
+
+
+
+
+
+/* Estilo para hacer las imágenes circulares */
+.img-container {
+
+    justify-content: space-between;
+    
+    text-align: center;
+
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 100px;
+    user-select: none;
+}
+
+
+
+.img-container img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+
+
+
+/* Estilo para los nombres de idiomas */
+.language-name {
+    min-width:150px;
+    padding-top: 5px;
+    padding-left: 20px; /* Ajusta según sea necesario */
+    padding-right: 20px; /* Ajusta según sea necesario */
+    padding-bottom: 20px;
+    color: #ffffff;
+    font-size: 0.8em;
+    font-weight: bold; 
+}
+
+
+
+
+
+
+
+
+.language-container {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 80px;
+    padding-bottom: 20px;
+}
+.language-section {
+    color: #ffffff;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+
+
+.language-description-container {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 50px;
+}
+.language-description {
+    color: #ffffff;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+
+
+
+
+
+
+.video-title {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+
+
+.video-container {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding:10px 200px;
+}
+
+iframe {
+    width: 560px;
+    height: 315px;
+    border: 2px solid #ccc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width:1024px){
+
+    .container {
+        margin: 15px;
+    }
+
+    .card-01 {
+        position: relative;
+        flex: 1;
+        max-width: 100%;
+        min-width:350px;
+        height: auto;
+        margin: 10px;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 40px;
+    }
+    .card-02{
+        flex:100%;
+        max-width:600px;
+        padding-left:50px;
+        padding-right:30px;
+    }
+
+
+    .video-title {
+        padding-top: 20px;
+        padding-bottom: 50px;
+    }
+
+    .video-container {
+        padding:10px 10px;
+    }
+    .language-container {
+        padding-top: 50px;
+    }
+
+}
+
+
+
+@media (max-width:400px){
+
+    .card-01 {
+        min-width:200px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
