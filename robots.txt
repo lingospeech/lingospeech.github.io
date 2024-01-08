@@ -1,7 +1,13 @@
 User-agent: *
-Disallow: /design/
-Disallow: /languages/
-Disallow: /resources/
-Allow: /index.html
+Disallow: 
+
+User-agent: Googlebot
+Disallow: 
+
+User-agent: Yandex
+Disallow:
+
+User-agent: Bingbot
+Disallow:
 
 Sitemap: https://streamlanguages.com/sitemap.xml
