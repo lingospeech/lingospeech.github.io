@@ -7,10 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
       downloadLink.download = 'streamlanguages-win64.zip'; 
 
       downloadLink.click();
-      console.log("download");
-      
-      
-      fetch('https://symphonious.glitch.me/apidownload', { method: 'GET' });
+      console.log("download_app");
+    
 
 
         
