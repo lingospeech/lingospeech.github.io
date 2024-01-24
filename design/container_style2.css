@@ -3,7 +3,15 @@ body {
     padding: 0;
     font-family: 'Segoe UI';
     color: #ffffff;
-    background: radial-gradient(ellipse at center, #2d2dac 0%, #141461 100%);
+    background: radial-gradient(ellipse at center, #3600a3 0%, #141461 100%);
+  }
+
+  h1{
+    font-size:2.2rem;
+  }
+
+  p{
+    font-size:1.3rem;
   }
 
   .container {
@@ -17,6 +25,7 @@ body {
     background-color: #33333300;
     color: white;
     padding: 10px 0;
+    user-select: none;
   }
 
   nav img {
@@ -66,6 +75,8 @@ body {
     width: 100%; 
     height: auto; 
     border-radius: 20px;
+    margin-top:40px;
+    user-select: none;
   }
   .full-width iframe {
     width: 100%; 
@@ -80,6 +91,7 @@ body {
     display: flex;
     justify-content: flex-start; 
     margin-top: 10px; 
+    user-select: none;
   }
 
   .btn {
@@ -88,13 +100,13 @@ body {
       margin-bottom:30px;
       margin-right:10px;
       border: none;
-      background: linear-gradient(to bottom right, #5e6eff, #1834cf);
+      background-color:#7c55e6;
       color: white;
       padding: 15px 20px;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s;
-      font-size:16px;
+      font-size:20px;
       font-weight: bold;
       
       width: 100%;
@@ -122,7 +134,7 @@ body {
 }
 
   .btn:hover {
-      background-color: #1100ac;
+      background-color: #7c55e6;
       box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 40px rgba(67, 46, 255, 0.671);
 
   }
@@ -178,12 +190,14 @@ body {
       min-width:100px;
   }
 
+      /*
       #desktop{
           display:flex;
       }
       .btn{
           display:none;
       }
+      */
 
       iframe {
       width: 250px; 
