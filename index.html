@@ -35,31 +35,42 @@
     <div class="container">
     <nav>
       <img src="languages/icon_logo.jpg" alt="Logo" class="logo">
-      <h3>STREAMLANGUAGES</h3>
+      <h3 translate="no">STREAMLANGUAGES</h3>
     </nav>
 
     <div class="card-container">
       <div class="card">
         <article>
             <header>
-              <h1>Real Time Translation of Live Streams & desktop audio translator</h1>
+              <h1>Real Time Translation of Live Streams</h1>
             </header>
-            <p>Online subtitles generator. Translate any voice from desktop audio in real time and add subtitles.
+            <p>Online subtitles generator. Translate streamers voice in real time and add subtitles.
             </p>
-            <p>If you're interested in understanding in real time what streamers (who speak a different language) are saying, this tool is perfect for you
-            </p>
-            <p>10+ languages
+            <p>Listen chat messages in any language of any stream and stop reading the chat
             </p>
             <p id="desktop"><strong>Access this page from your desktop to download the tool</strong>
             </p>
         </article>
         <div class="buttons-container">
-          <button id="downloadButton" name="click_download" class="btn">Download</button>
+          <button id="downloadButton" name="click_download" class="btn" onclick="desplazarHaciaSeccion()">Quick Start</button>
         </div>
       </div>
       <div class="card">
-        <img src="images/image_app10.jpg" alt="Image">
+        <img src="images/image_app_mobile.jpg" alt="Image">
       </div>
+
+    <div id="getStarted" class="listen-card">
+        <article>
+            <p style="font-size: 22px;font-weight: bold;">Listen chat messages</p>
+        </article>
+        <div class="listen-container">
+            <input type="text" id="channelId" class="input_username" placeholder="Streamer username">
+            <button id="listenButton" name="click_listen" class="btn3">Play</button>
+        </div>
+    </div>
+
+
+
       
       <div class="full-width-card">
         <article>
@@ -125,13 +136,14 @@
 
     </div>
 
-    </div>
+    
+
+
   </div>
 
     
 
-   <script src="design/download_app.js"></script>
-   <script src="design/click_download.js"></script>
+   <script src="design/listen_o.js"></script>
     
 </body>
 </html>
