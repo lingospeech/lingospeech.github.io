@@ -1,0 +1,58 @@
+.input_username {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 200px;
+    padding: 16px 12px; 
+    border-radius: 15px;
+    background: rgb(255, 255, 255);
+    color: #000000;
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.listen-card {
+    flex: 1 0 100%; 
+    box-sizing: border-box;
+    border: 1px solid #dddddd00;
+    padding: 15px;
+    text-align: center;
+    background-color: rgba(255, 0, 0, 0);
+  }
+
+  .listen-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn3 {
+    display:block;
+    margin-top:30px;
+    margin-bottom:30px;
+    margin-right:10px;
+    border: none;
+    background-color:#7c55e6;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size:20px;
+    font-weight: bold;
+    
+    width: 100%;
+    max-width: 200px;
+    box-sizing: border-box;
+}
+
+.btn3:hover {
+    background-color: #7c55e6;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 40px rgba(67, 46, 255, 0.671);
+
+}
+
+
