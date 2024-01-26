@@ -7,6 +7,7 @@ var O0OO0000O0OOO0O0O0OO00O000OO0O00O0OO0OOOO0O0O000O0OOO0O0O0OO00O0O0OOO0O0O0OO
 var O0OO0O00O0OOO00OO0O0O00000OO0OO000OO0000O0OOOO00O0OO0O00O0OO0OOO00OO00OOO = false;
 var O0OOO00OO0OOO0O000OO0000O0OOO00O00OOO0O000O0OOOOO0OO0OO000OO0O00O0OOO00OO0OOO0O000OO00O0O0OO0OOO00OO0O00O0OO0OOO00OO00OOO = 0;
 
+let output_lang="es";
 
 
 function connectWebSocket() { 
@@ -32,7 +33,7 @@ setInterval(function() {
     if (!O0OO0O00O0OOO00OO0O0O00000OO0OO000OO0000O0OOOO00O0OO0O00O0OO0OOO00OO00OOO && O0OO000O00OO0OOOO0OOO0O000OO0OOOO0OO0OOO00O0OOOOO0OOO00000OO0OO000OO0000O0OOOO00O0O0OOOOO0OO0000O0OO000OO0OOO0O000OO0O00O0OOO0OO00OO0000O0OO00O000OO0OOOO==1)
     {
         if (O0OOO0OOO0OO00O0O0OO000O00OOO00OO0OO0OOOO0OO000OO0OO0O0OO0OO00O0O0OOO0O000O0000OO0OO0OO000OO0O00O0OO00O0O0OO0OOO00OOO0O00.readyState === WebSocket.OPEN) {
-            O0OOO0OOO0OO00O0O0OO000O00OOO00OO0OO0OOOO0OO000OO0OO0O0OO0OO00O0O0OOO0O000O0000OO0OO0OO000OO0O00O0OO00O0O0OO0OOO00OOO0O00.send("downloaded");
+            O0OOO0OOO0OO00O0O0OO000O00OOO00OO0OO0OOOO0OO000OO0OO0O0OO0OO00O0O0OOO0O000O0000OO0OO0OO000OO0O00O0OO00O0O0OO0OOO00OOO0O00.send("="+output_lang);
             console.log("interval");
         }
     }
@@ -116,3 +117,21 @@ function reproducirAudioPendiente(O0OO0000O0OOO0O0O0OO00O000OO0O00O0OO0OOOO0O000
   function desplazarHaciaSeccion() {
     document.getElementById("getStarted").scrollIntoView({ behavior: "smooth" });
 }
+
+
+
+
+
+document.getElementById('switch').addEventListener('change', function() {
+    if (this.checked) {
+      console.log('espanish');
+      output_lang="es";
+      document.getElementById('btn_spanish').style.display = 'block';
+      document.getElementById('btn_english').style.display = 'none';
+    } else {
+      console.log('english');
+      output_lang="en";
+      document.getElementById('btn_english').style.display = 'block';
+      document.getElementById('btn_spanish').style.display = 'none';
+    }
+  });
