@@ -43,14 +43,13 @@
       <div class="card">
         <article>
             <header>
-              <h1>Real Time Translation of Live Streams</h1>
+              <h1>Listen messages of Live Streams in Real Time</h1>
             </header>
-            <p>Online subtitles generator. Translate streamers voice in real time and add subtitles.
+            <p>Listen chat messages while you are playing videogames and stop reading the chat <span style="font-weight: bold;">(no login required)</span>
             </p>
-            <p>Listen chat messages in any language of any stream and stop reading the chat
+            <p>Translation chat available. Talk with users in other languages and grow your audience
             </p>
-            <p id="desktop"><strong>Access this page from your desktop to download the tool</strong>
-            </p>
+            
         </article>
         <div class="buttons-container">
           <button id="downloadButton" name="click_download" class="btn" onclick="desplazarHaciaSeccion()">Quick Start</button>
@@ -62,7 +61,7 @@
 
     <div id="getStarted" class="listen-card">
         <article>
-            <p style="font-size: 22px;font-weight: bold;">Listen chat messages</p>
+            <p style="font-size: 22px;font-weight: bold;">Enter your Twitch username</p>
         </article>
         <div class="listen-container">
             <div class="switch-container">
@@ -73,7 +72,9 @@
                 </label>
               </div>
             <input type="text" id="channelId" class="input_username" placeholder="Streamer username">
-            <button id="listenButton" name="click_listen" class="btn3">Play</button>
+            <div id="loading">Loading...</div>
+            <div id="ready">Ready</div>
+            <button id="listenButton" name="click_listen" class="btn3">Listen chat</button>
         </div>
     </div>
 
@@ -142,6 +143,10 @@
             
         </div>
 
+    </div>
+
+    <div class="full-width-card-2">
+        © Copyright 2024. All rights reserved
     </div>
 
     
