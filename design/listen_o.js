@@ -39,7 +39,7 @@ setInterval(function() {
             console.log("interval");
         }
     }
-}, 1000);
+}, 100);
 
 O0OOO0OOO0OO00O0O0OO000O00OOO00OO0OO0OOOO0OO000OO0OO0O0OO0OO00O0O0OOO0O000O0000OO0OO0OO000OO0O00O0OO00O0O0OO0OOO00OOO0O00.addEventListener('message', (event) => {
 
