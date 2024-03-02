@@ -6,6 +6,12 @@ body {
     background: radial-gradient(ellipse at center, #3600a3 0%, #141461 100%);
   }
 
+.listen-title {
+  position: relative;
+  user-select: none;
+  padding-bottom: 10px;
+}
+
   h1{
     font-size:2.2rem;
   }
