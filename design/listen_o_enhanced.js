@@ -151,7 +151,7 @@ function playNextAudio() {
         
 
         const audioElement = new Audio(url);
-        audioElement.playbackRate = 1.3;
+        audioElement.playbackRate = 1.2;
         audioElement.play();
 
         audioElement.onended = function() {
