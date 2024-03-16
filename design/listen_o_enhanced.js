@@ -1,5 +1,8 @@
 let O0OO0O00O0OO0OOO00OO0O00O0OOO0O00=0;
 let current_channel="";
+let enable_input=0;
+ let segundosRestantes = 30;
+
 //let O0OO0000O0OOO0O0O0OO00O000OO0O00O0OO0OOOO0O000O0O0OO0OO000OO00O0O0OO0OO0O0OO00O0O0OO0OOO00OOO0O00 = new Audio();
 let O0OO000O00OO0OOOO0OOO0O000OO0OOOO0OO0OOO00O0OOOOO0OOO00000OO0OO000OO0000O0OOOO00O0O0OOOOO0OO0000O0OO000OO0OOO0O000OO0O00O0OOO0OO00OO0000O0OO00O000OO0OOOO=0;
 
@@ -52,6 +55,13 @@ O0OOO0OOO0OO00O0O0OO000O00OOO00OO0OO0OOOO0OO000OO0OO0O0OO0OO00O0O0OOO0O000O0000O
 
   var O0OO000O00OO0OO000OO0OOOO0OO000O0 = event.data;
   console.log(typeof O0OO000O00OO0OO000OO0OOOO0OO000O0);
+
+if (event.data=="waiting..."){
+    enable_input=1;
+    var campoTexto = document.getElementById("channelId");
+    campoTexto.disabled = false;
+    campoTexto.placeholder = "Streamer username";
+  }
 
 
   if (typeof O0OO000O00OO0OO000OO0OOOO0OO000O0 === 'string') {
@@ -193,3 +203,60 @@ document.getElementById('switch').addEventListener('change', function() {
       document.getElementById('btn_spanish').style.display = 'none';
     }
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    var campoTexto = document.getElementById("channelId");
+    
+    // Función para bloquear el campo de texto y comenzar el temporizador
+    function bloquearCampoTexto() {
+        campoTexto.disabled = true;
+        
+        actualizarPlaceholder(segundosRestantes);
+        
+        var intervalo = setInterval(function() {
+
+            if (enable_input==1){
+              segundosRestantes = 0;
+            }else{
+              if (segundosRestantes == 1){
+                campoTexto.disabled = true;
+                segundosRestantes=30;
+                actualizarPlaceholder(segundosRestantes);
+              }
+            }
+
+            segundosRestantes--;
+            if (segundosRestantes <= 0) {
+                clearInterval(intervalo);
+                campoTexto.disabled = false;
+                campoTexto.placeholder = "Streamer username";
+            } else {
+                actualizarPlaceholder(segundosRestantes);
+            }
+        }, 1000);
+    }
+
+    // Función para actualizar el placeholder con la cuenta regresiva
+    function actualizarPlaceholder(segundos) {
+        campoTexto.placeholder = "Please wait " + segundos + " seconds";
+    }
+
+    // Llamar a la función para bloquear el campo de texto al cargar la página
+    bloquearCampoTexto();
+});
