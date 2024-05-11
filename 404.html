@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5; url=/404" />
+    <title>Redireccionando...</title>
+</head>
+<body>
+    <p>Redireccionando a la página de error...</p>
+    <p>Intentaste acceder a: <span id="redirectedUrl"></span></p>
+
+    <script>
+        // Obtener la URL actual y mostrarla en la página
+        var redirectedUrl = window.location.href;
+        document.getElementById("redirectedUrl").textContent = redirectedUrl;
+    </script>
+</body>
+</html>
