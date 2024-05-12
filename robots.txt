@@ -14,4 +14,7 @@ User-agent: Bingbot
 Disallow:
 Disallow: /404.html
 
+User-agent: Twitterbot
+Disallow:
+
 Sitemap: https://streamlanguages.com/sitemap.xml
