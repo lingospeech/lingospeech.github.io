@@ -2,19 +2,4 @@ User-agent: *
 Disallow:
 Disallow: /404.html
 
-User-agent: Googlebot
-Disallow: 
-Disallow: /404.html
-
-User-agent: Yandex
-Disallow:
-Disallow: /404.html
-
-User-agent: Bingbot
-Disallow:
-Disallow: /404.html
-
-User-agent: Twitterbot
-Disallow:
-
 Sitemap: https://streamlanguages.com/sitemap.xml
