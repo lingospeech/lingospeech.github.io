@@ -911,13 +911,13 @@ async function loadModels() {
     "Cargando encoder ONNX…"
   );
 
-
+  //"disabled", "basic", "extended", "all"
   encoderSession =
     await ort.InferenceSession.create(
       ENCODER_URL,
 
       {
-        executionProviders: ["wasm"], graphOptimizationLevel: "disabled"
+        executionProviders: ["wasm"], graphOptimizationLevel: "basic"
       }
     );
 
@@ -932,7 +932,7 @@ async function loadModels() {
       DECODER_URL,
 
       {
-        executionProviders: ["wasm"], graphOptimizationLevel: "disabled"
+        executionProviders: ["wasm"], graphOptimizationLevel: "basic"
       }
     );
 
