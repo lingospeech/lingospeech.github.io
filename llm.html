@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Needle Function Calling</title>
+
+<script src="coi-serviceworker.js"></script>
+
+<style>
+  :root {
+    --bg: #171717;
+    --panel: #222;
+    --panel2: #2a2a2a;
+    --text: #ececec;
+    --muted: #999;
+    --border: #3a3a3a;
+    --accent: #10a37f;
+    --accent2: #0d8f70;
+    --code-bg: #0d0d0d;
+    --code-head: #1e1e1e;
+    --danger: #d66;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  header {
+    height: 58px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: var(--accent);
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .title {
+    font-weight: 650;
+    font-size: .95rem;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: .75rem;
+    margin-top: 2px;
+  }
+
+  #status {
+    color: var(--muted);
+    font-size: .78rem;
+  }
+
+  main {
+    height: calc(100vh - 58px);
+    overflow-y: auto;
+    padding: 28px 20px 40px;
+  }
+
+  .workspace {
+    width: min(1050px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .panel-head {
+    min-height: 48px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .panel-title {
+    font-size: .82rem;
+    font-weight: 650;
+  }
+
+  .panel-desc {
+    color: var(--muted);
+    font-size: .7rem;
+    margin-top: 2px;
+  }
+
+  .panel-body {
+    padding: 16px;
+  }
+
+  textarea,
+  .json-editor {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: #191919;
+    color: var(--text);
+    outline: none;
+    border-radius: 10px;
+    padding: 13px;
+    font: .86rem/1.5 ui-monospace, "Cascadia Code", Consolas, monospace;
+    resize: vertical;
+  }
+
+  #query {
+    min-height: 145px;
+  }
+
+  #tools {
+    min-height: 310px;
+  }
+
+  textarea:focus {
+    border-color: #555;
+  }
+
+  .examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 10px;
+  }
+
+  .example {
+    border: 1px solid var(--border);
+    background: var(--panel2);
+    color: var(--muted);
+    border-radius: 7px;
+    padding: 6px 9px;
+    font-size: .72rem;
+    cursor: pointer;
+  }
+
+  .example:hover {
+    color: var(--text);
+    border-color: #555;
+  }
+
+  .tool-list {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .tool-card {
+    border: 1px solid var(--border);
+    background: #1b1b1b;
+    border-radius: 9px;
+    padding: 10px 12px;
+  }
+
+  .tool-name {
+    color: var(--accent);
+    font: 600 .78rem ui-monospace, monospace;
+  }
+
+  .tool-description {
+    color: var(--muted);
+    font-size: .72rem;
+    margin-top: 3px;
+  }
+
+  .runbar {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  #run {
+    min-width: 190px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--accent);
+    color: white;
+    padding: 12px 20px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+
+  #run:hover:not(:disabled) {
+    background: var(--accent2);
+  }
+
+  #run:disabled {
+    opacity: .4;
+    cursor: default;
+  }
+
+  .result-panel {
+    grid-column: 1 / -1;
+  }
+
+  .result-meta {
+    color: var(--muted);
+    font-size: .7rem;
+  }
+
+  #result {
+    min-height: 110px;
+  }
+
+  .empty-result {
+    color: var(--muted);
+    text-align: center;
+    padding: 35px 20px;
+    font-size: .82rem;
+  }
+
+  .codeblock {
+    background: var(--code-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .codehead {
+    background: var(--code-head);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 12px;
+    font-size: .75rem;
+    color: var(--muted);
+  }
+
+  .codehead button {
+    background: none;
+    border: 0;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: .75rem;
+  }
+
+  .codehead button:hover {
+    color: var(--text);
+  }
+
+  pre {
+    margin: 0;
+    padding: 14px;
+    overflow-x: auto;
+  }
+
+  pre code {
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size: .84rem;
+    line-height: 1.5;
+    white-space: pre;
+    tab-size: 4;
+    display: block;
+  }
+
+  .pipeline {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .step {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .step-number {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #333;
+    display: grid;
+    place-items: center;
+    font-size: .7rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .step strong {
+    font-size: .75rem;
+  }
+
+  .step span {
+    display: block;
+    color: var(--muted);
+    font-size: .68rem;
+    margin-top: 3px;
+  }
+
+  .error {
+    color: var(--danger);
+    white-space: pre-wrap;
+    font: .78rem/1.5 ui-monospace, monospace;
+  }
+
+  @media (max-width: 800px) {
+    .workspace {
+      grid-template-columns: 1fr;
+    }
+
+    .pipeline {
+      grid-template-columns: 1fr;
+    }
+
+    .runbar,
+    .result-panel {
+      grid-column: auto;
+    }
+
+    header {
+      padding: 0 14px;
+    }
+
+    main {
+      padding: 18px 12px 30px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">N</div>
+
+    <div>
+      <div class="title">Needle Function Calling</div>
+      <div class="subtitle">26M · ONNX · WASM · ejecución local</div>
+    </div>
+  </div>
+
+  <span id="status">Cargando modelo…</span>
+</header>
+
+<main>
+
+  <div class="workspace">
+
+    <!-- QUERY -->
+    <section class="panel">
+
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Consulta</div>
+          <div class="panel-desc">
+            Lo que quieres que el modelo interprete
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-body">
+
+        <textarea
+          id="query"
+          placeholder="Ejemplo: Pon un temporizador de 5 minutos"
+          disabled
+        ></textarea>
+
+        <div class="examples">
+          <button class="example" data-query="Pon un temporizador de 5 minutos">
+            ⏱ Temporizador
+          </button>
+
+          <button class="example" data-query="¿Qué tiempo hace ahora en Barcelona?">
+            ☁ Barcelona
+          </button>
+
+          <button class="example" data-query="¿Qué tiempo hace ahora en Madrid?">
+            ☁ Madrid
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TOOLS -->
+    <section class="panel">
+
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Herramientas disponibles</div>
+          <div class="panel-desc">
+            Funciones que Needle puede seleccionar
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-body">
+
+        <div class="tool-list">
+
+          <div class="tool-card">
+            <div class="tool-name">set_timer</div>
+            <div class="tool-description">
+              Establece un temporizador.
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-name">get_weather</div>
+            <div class="tool-description">
+              Obtiene el tiempo meteorológico actual de una ciudad.
+            </div>
+          </div>
+
+        </div>
+
+        <textarea id="tools" spellcheck="false" disabled></textarea>
+
+      </div>
+
+    </section>
+
+
+    <!-- PIPELINE -->
+    <div class="pipeline">
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <strong>Encoder</strong>
+        <span>Consulta + definición de herramientas</span>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <strong>Decoder + KV cache</strong>
+        <span>Generación autoregresiva del tool call</span>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <strong>JSON</strong>
+        <span>Llamada estructurada lista para ejecutar</span>
+      </div>
+
+    </div>
+
+
+    <!-- RUN -->
+    <div class="runbar">
+
+      <button id="run" disabled>
+        Ejecutar Needle
+      </button>
+
+    </div>
+
+
+    <!-- RESULT -->
+    <section class="panel result-panel">
+
+      <div class="panel-head">
+
+        <div>
+          <div class="panel-title">Tool call generado</div>
+          <div class="panel-desc">
+            JSON producido por el modelo
+          </div>
+        </div>
+
+        <div id="result-meta" class="result-meta"></div>
+
+      </div>
+
+      <div class="panel-body">
+
+        <div id="result">
+          <div class="empty-result">
+            Introduce una consulta y ejecuta el modelo.
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</main>
+
+
+
+<script type="module">
+
+/* ============================================================
+   ONNX RUNTIME WEB — WASM
+   ============================================================ */
+
+import * as ort from
+  "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.wasm.min.mjs";
+
+
+/*
+ * IMPORTANTE:
+ *
+ * Los archivos:
+ *
+ *   ort-wasm-simd-threaded.mjs
+ *   ort-wasm-simd-threaded.wasm
+ *
+ * se descargan directamente desde jsDelivr.
+ *
+ * No hace falta copiarlos al repositorio.
+ */
+
+ort.env.wasm.wasmPaths =
+  "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/";
+
+
+/*
+ * Tu PC tiene 4 threads.
+ *
+ * ONNX Runtime cuenta el thread principal dentro
+ * de numThreads.
+ */
+
+ort.env.wasm.numThreads = 4;
+
+ort.env.wasm.simd = true;
+
+
+/*
+ * No usamos proxy worker.
+ *
+ * Esto evita que ONNX Runtime intente crear el
+ * worker proxy desde el bundle ESM cross-origin.
+ */
+
+ort.env.wasm.proxy = false;
+
+
+/* ============================================================
+   SENTENCEPIECE
+   ============================================================ */
+
+import {
+  SentencePieceProcessor
+} from
+  "https://cdn.jsdelivr.net/npm/@sctg/sentencepiece-js@1.3.3/+esm";
+
+
+/* ============================================================
+   CONFIG
+   ============================================================ */
+
+const BASE =
+  "https://huggingface.co/onnx-community/needle-onnx/resolve/main/";
+
+const ENCODER_URL =
+  BASE + "encoder.onnx";
+
+const DECODER_URL =
+  BASE + "decoder_step.onnx";
+
+const TOKENIZER_URL =
+  BASE + "needle.model";
+
+
+/*
+ * Needle special tokens.
+ */
+
+const PAD_ID = 0;
+const EOS_ID = 1;
+const BOS_ID = 2;
+const TOOL_CALL_ID = 4;
+const TOOLS_ID = 5;
+
+
+/*
+ * Encoder context.
+ */
+
+const MAX_ENCODER_TOKENS = 1024;
+
+
+/*
+ * Tool calls son normalmente muy pequeños.
+ */
+
+const MAX_GENERATION_TOKENS = 64;
+
+
+/* ============================================================
+   TOOLS
+   ============================================================ */
+
+const TOOLS = [
+  {
+    name: "set_timer",
+
+    description:
+      "Establece un temporizador.",
+
+    parameters: {
+      type: "object",
+
+      properties: {
+        time_human: {
+          type: "string",
+          description: "Duración del temporizador."
+        }
+      },
+
+      required: [
+        "time_human"
+      ]
+    }
+  },
+
+  {
+    name: "get_weather",
+
+    description:
+      "Obtiene el tiempo meteorológico actual de una ciudad.",
+
+    parameters: {
+      type: "object",
+
+      properties: {
+        city: {
+          type: "string",
+          description: "Nombre de la ciudad a la que se refiere el usuario. Extrae únicamente la entidad correspondiente a la ciudad, descartando palabras descriptivas, calificativos y contexto que no formen parte del nombre."
+        }
+      },
+
+      required: [
+        "city"
+      ]
+    }
+  }
+];
+
+
+/* ============================================================
+   DOM
+   ============================================================ */
+
+const statusEl =
+  document.getElementById("status");
+
+const queryEl =
+  document.getElementById("query");
+
+const toolsEl =
+  document.getElementById("tools");
+
+const runEl =
+  document.getElementById("run");
+
+const resultEl =
+  document.getElementById("result");
+
+const resultMetaEl =
+  document.getElementById("result-meta");
+
+
+/* ============================================================
+   STATE
+   ============================================================ */
+
+let tokenizer = null;
+
+let encoderSession = null;
+
+let decoderSession = null;
+
+let ready = false;
+
+let running = false;
+
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+
+function setStatus(text) {
+
+  statusEl.textContent = text;
+
+}
+
+
+function sleep(ms) {
+
+  return new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+
+}
+
+
+function idsTensor(ids) {
+
+  return new ort.Tensor(
+    "int64",
+
+    BigInt64Array.from(
+      ids.map(
+        x => BigInt(x)
+      )
+    ),
+
+    [1, ids.length]
+  );
+
+}
+
+
+function tokenTensor(id) {
+
+  return new ort.Tensor(
+    "int64",
+
+    BigInt64Array.from([
+      BigInt(id)
+    ]),
+
+    [1, 1]
+  );
+
+}
+
+
+function argmax(data) {
+
+  let bestIndex = 0;
+
+  let bestValue = data[0];
+
+
+  for (
+    let i = 1;
+    i < data.length;
+    i++
+  ) {
+
+    if (
+      data[i] > bestValue
+    ) {
+
+      bestValue = data[i];
+
+      bestIndex = i;
+
+    }
+
+  }
+
+
+  return bestIndex;
+
+}
+
+
+/* ============================================================
+   ARRAYBUFFER -> BASE64
+   ============================================================ */
+
+function arrayBufferToBase64(buffer) {
+
+  const bytes =
+    new Uint8Array(buffer);
+
+  const chunkSize =
+    0x8000;
+
+  let binary = "";
+
+
+  for (
+    let i = 0;
+    i < bytes.length;
+    i += chunkSize
+  ) {
+
+    const chunk =
+      bytes.subarray(
+        i,
+        Math.min(
+          i + chunkSize,
+          bytes.length
+        )
+      );
+
+
+    binary +=
+      String.fromCharCode(
+        ...chunk
+      );
+
+  }
+
+
+  return btoa(binary);
+
+}
+
+
+/* ============================================================
+   TOKENIZER
+   ============================================================ */
+
+async function loadTokenizer() {
+
+  setStatus(
+    "Descargando tokenizer…"
+  );
+
+
+  const response =
+    await fetch(
+      TOKENIZER_URL
+    );
+
+
+  if (!response.ok) {
+
+    throw new Error(
+      `No se pudo descargar needle.model: HTTP ${response.status}`
+    );
+
+  }
+
+
+  const buffer =
+    await response.arrayBuffer();
+
+
+  setStatus(
+    "Inicializando tokenizer…"
+  );
+
+
+  const base64 =
+    arrayBufferToBase64(
+      buffer
+    );
+
+
+  tokenizer =
+    new SentencePieceProcessor();
+
+
+  /*
+   * API correcta para cargar un modelo binario
+   * SentencePiece desde navegador.
+   */
+
+  await tokenizer.loadFromB64StringModel(
+    base64
+  );
+
+
+  console.log(
+    "Needle tokenizer listo"
+  );
+
+}
+
+
+/* ============================================================
+   ONNX SESSIONS
+   ============================================================ */
+
+async function loadModels() {
+
+  setStatus(
+    "Cargando encoder ONNX…"
+  );
+
+
+  encoderSession =
+    await ort.InferenceSession.create(
+      ENCODER_URL,
+
+      {
+        executionProviders: ["wasm"], graphOptimizationLevel: "disabled"
+      }
+    );
+
+
+  setStatus(
+    "Cargando decoder ONNX…"
+  );
+
+
+  decoderSession =
+    await ort.InferenceSession.create(
+      DECODER_URL,
+
+      {
+        executionProviders: ["wasm"], graphOptimizationLevel: "disabled"
+      }
+    );
+
+
+  console.log(
+    "Needle encoder inputs:",
+    encoderSession.inputNames
+  );
+
+
+  console.log(
+    "Needle encoder outputs:",
+    encoderSession.outputNames
+  );
+
+
+  console.log(
+    "Needle decoder inputs:",
+    decoderSession.inputNames
+  );
+
+
+  console.log(
+    "Needle decoder outputs:",
+    decoderSession.outputNames
+  );
+
+}
+
+
+/* ============================================================
+   ENCODER INPUT
+   ============================================================ */
+
+function buildEncoderInput(
+  query,
+  toolsJSON
+) {
+
+  const queryIds =
+    tokenizer.encodeIds(
+      query
+    );
+
+
+  const toolsIds =
+    tokenizer.encodeIds(
+      toolsJSON
+    );
+
+
+  /*
+   * Reservamos un token para <tools>.
+   */
+
+  const maxQueryLength =
+    Math.max(
+      1,
+      MAX_ENCODER_TOKENS -
+      toolsIds.length -
+      1
+    );
+
+
+  const q =
+    queryIds.slice(
+      0,
+      maxQueryLength
+    );
+
+
+  const remaining =
+    MAX_ENCODER_TOKENS -
+    q.length -
+    1;
+
+
+  const t =
+    toolsIds.slice(
+      0,
+      Math.max(
+        0,
+        remaining
+      )
+    );
+
+
+  /*
+   * [query, <tools>, tools]
+   */
+
+  return [
+    ...q,
+    TOOLS_ID,
+    ...t
+  ];
+
+}
+
+
+/* ============================================================
+   ENCODER
+   ============================================================ */
+
+async function runEncoder(
+  query,
+  toolsJSON
+) {
+
+  const inputIds =
+    buildEncoderInput(
+      query,
+      toolsJSON
+    );
+
+
+  const input =
+    idsTensor(
+      inputIds
+    );
+
+
+  const outputs =
+    await encoderSession.run({
+      input_ids: input
+    });
+
+
+  const encoderOut =
+    outputs.encoder_out;
+
+
+  if (!encoderOut) {
+
+    throw new Error(
+      "El encoder no devolvió encoder_out."
+    );
+
+  }
+
+
+  return encoderOut;
+
+}
+
+
+/* ============================================================
+   INITIAL KV
+   ============================================================ */
+
+function createEmptyKV() {
+
+  /*
+   * Needle decoder:
+   *
+   * layers     = 8
+   * K/V        = 2
+   * batch      = 1
+   * KV heads   = 4
+   * sequence   = 0
+   * head dim   = 64
+   *
+   * [8, 2, 1, 4, 0, 64]
+   */
+
+  return new ort.Tensor(
+    "float32",
+
+    new Float32Array(0),
+
+    [
+      8,
+      2,
+      1,
+      4,
+      0,
+      64
+    ]
+  );
+
+}
+
+
+/* ============================================================
+   DECODER GENERATION
+   ============================================================ */
+
+async function generate(
+  encoderOut
+) {
+
+  let pastKV =
+    createEmptyKV();
+
+
+  /*
+   * Primer token.
+   */
+
+  let currentToken =
+    EOS_ID;
+
+
+  const generated = [];
+
+
+  for (
+    let step = 0;
+    step < MAX_GENERATION_TOKENS;
+    step++
+  ) {
+
+    const outputs =
+      await decoderSession.run({
+
+        decoder_input_ids:
+          tokenTensor(
+            currentToken
+          ),
+
+        encoder_out:
+          encoderOut,
+
+        past_self_kv:
+          pastKV
+
+      });
+
+
+    const logits =
+      outputs.logits;
+
+
+    const presentKV =
+      outputs.present_self_kv;
+
+
+    if (!logits) {
+
+      throw new Error(
+        "El decoder no devolvió logits."
+      );
+
+    }
+
+
+    if (!presentKV) {
+
+      throw new Error(
+        "El decoder no devolvió present_self_kv."
+      );
+
+    }
+
+
+    /*
+     * KV del siguiente paso.
+     */
+
+    pastKV =
+      presentKV;
+
+
+    /*
+     * Greedy decoding.
+     */
+
+    const nextToken =
+      argmax(
+        logits.data
+      );
+
+
+    /*
+     * EOS = final.
+     */
+
+    if (
+      nextToken === EOS_ID
+    ) {
+
+      break;
+
+    }
+
+
+    generated.push(
+      nextToken
+    );
+
+
+    currentToken =
+      nextToken;
+
+
+    /*
+     * Deja respirar al navegador.
+     */
+
+    if (
+      step % 4 === 0
+    ) {
+
+      await sleep(0);
+
+    }
+
+  }
+
+
+  return generated;
+
+}
+
+
+/* ============================================================
+   DECODE
+   ============================================================ */
+
+function decodeTokens(ids) {
+
+  let text =
+    tokenizer.decodeIds(
+      ids
+    );
+
+
+  /*
+   * Quitar <tool_call> si el modelo
+   * lo devuelve explícitamente.
+   */
+
+  text =
+    text.replace(
+      /^<tool_call>/,
+      ""
+    );
+
+
+  return text.trim();
+
+}
+
+
+/* ============================================================
+   PARSE JSON
+   ============================================================ */
+
+function parseToolCall(text) {
+
+  let value =
+    text.trim();
+
+
+  /*
+   * Eliminar markdown accidental.
+   */
+
+  value =
+    value
+      .replace(
+        /^```json\s*/i,
+        ""
+      )
+      .replace(
+        /^```\s*/i,
+        ""
+      )
+      .replace(
+        /\s*```$/i,
+        ""
+      )
+      .trim();
+
+
+  /*
+   * Buscar array.
+   */
+
+  const arrayStart =
+    value.indexOf("[");
+
+  const arrayEnd =
+    value.lastIndexOf("]");
+
+
+  if (
+    arrayStart !== -1 &&
+    arrayEnd > arrayStart
+  ) {
+
+    const candidate =
+      value.slice(
+        arrayStart,
+        arrayEnd + 1
+      );
+
+
+    try {
+
+      return JSON.parse(
+        candidate
+      );
+
+    } catch {}
+
+  }
+
+
+  /*
+   * Buscar objeto.
+   */
+
+  const objectStart =
+    value.indexOf("{");
+
+  const objectEnd =
+    value.lastIndexOf("}");
+
+
+  if (
+    objectStart !== -1 &&
+    objectEnd > objectStart
+  ) {
+
+    const candidate =
+      value.slice(
+        objectStart,
+        objectEnd + 1
+      );
+
+
+    try {
+
+      return JSON.parse(
+        candidate
+      );
+
+    } catch {}
+
+  }
+
+
+  throw new Error(
+    "Needle no produjo JSON válido.\n\n" +
+    "Salida original:\n" +
+    text
+  );
+
+}
+
+
+/* ============================================================
+   RESULT RENDER
+   ============================================================ */
+
+function renderJSON(value) {
+
+  const json =
+    JSON.stringify(
+      value,
+      null,
+      2
+    );
+
+
+  resultEl.innerHTML =
+    "";
+
+
+  const block =
+    document.createElement(
+      "div"
+    );
+
+  block.className =
+    "codeblock";
+
+
+  const head =
+    document.createElement(
+      "div"
+    );
+
+  head.className =
+    "codehead";
+
+
+  const label =
+    document.createElement(
+      "span"
+    );
+
+  label.textContent =
+    "json";
+
+
+  const copy =
+    document.createElement(
+      "button"
+    );
+
+  copy.textContent =
+    "Copiar";
+
+
+  copy.onclick =
+    async () => {
+
+      try {
+
+        await navigator.clipboard.writeText(
+          json
+        );
+
+
+        copy.textContent =
+          "Copiado";
+
+
+        setTimeout(
+          () => {
+            copy.textContent =
+              "Copiar";
+          },
+          1200
+        );
+
+
+      } catch {
+
+        copy.textContent =
+          "Error";
+
+      }
+
+    };
+
+
+  head.appendChild(
+    label
+  );
+
+  head.appendChild(
+    copy
+  );
+
+
+  const pre =
+    document.createElement(
+      "pre"
+    );
+
+
+  const code =
+    document.createElement(
+      "code"
+    );
+
+
+  code.textContent =
+    json;
+
+
+  pre.appendChild(
+    code
+  );
+
+
+  block.appendChild(
+    head
+  );
+
+  block.appendChild(
+    pre
+  );
+
+
+  resultEl.appendChild(
+    block
+  );
+
+}
+
+
+/* ============================================================
+   ERROR
+   ============================================================ */
+
+function renderError(error) {
+
+  resultEl.innerHTML =
+    "";
+
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+
+  div.className =
+    "error";
+
+
+  div.textContent =
+    error instanceof Error
+      ? (
+          error.stack ||
+          error.message
+        )
+      : String(error);
+
+
+  resultEl.appendChild(
+    div
+  );
+
+}
+
+
+/* ============================================================
+   TOOLS EDITOR
+   ============================================================ */
+
+function initializeTools() {
+
+  toolsEl.value =
+    JSON.stringify(
+      TOOLS,
+      null,
+      2
+    );
+
+}
+
+
+/* ============================================================
+   MAIN EXECUTION
+   ============================================================ */
+
+async function runNeedle() {
+
+  if (
+    !ready ||
+    running
+  ) {
+
+    return;
+
+  }
+
+
+  const query =
+    queryEl.value.trim();
+
+
+  if (!query) {
+
+    return;
+
+  }
+
+
+  let tools;
+
+
+  try {
+
+    tools =
+      JSON.parse(
+        toolsEl.value
+      );
+
+  } catch {
+
+    renderError(
+      new Error(
+        "El JSON de herramientas no es válido."
+      )
+    );
+
+    return;
+
+  }
+
+
+  running = true;
+
+
+  runEl.disabled = true;
+
+  queryEl.disabled = true;
+
+  toolsEl.disabled = true;
+
+
+  const start =
+    performance.now();
+
+
+  try {
+
+    /* --------------------------------------------------------
+       1. ENCODER
+       -------------------------------------------------------- */
+
+    setStatus(
+      "Codificando consulta…"
+    );
+
+
+    const toolsJSON =
+      JSON.stringify(
+        tools
+      );
+
+
+    const encoderOut =
+      await runEncoder(
+        query,
+        toolsJSON
+      );
+
+
+    /* --------------------------------------------------------
+       2. DECODER
+       -------------------------------------------------------- */
+
+    setStatus(
+      "Generando tool call…"
+    );
+
+
+    const generatedIds =
+      await generate(
+        encoderOut
+      );
+
+
+    /* --------------------------------------------------------
+       3. TOKENIZER
+       -------------------------------------------------------- */
+
+    setStatus(
+      "Decodificando…"
+    );
+
+
+    const rawText =
+      decodeTokens(
+        generatedIds
+      );
+
+
+    console.log(
+      "Needle raw output:",
+      rawText
+    );
+
+
+    /* --------------------------------------------------------
+       4. JSON
+       -------------------------------------------------------- */
+
+    const toolCall =
+      parseToolCall(
+        rawText
+      );
+
+
+    /* --------------------------------------------------------
+       5. RESULTADO
+       -------------------------------------------------------- */
+
+    renderJSON(
+      toolCall
+    );
+
+
+    const elapsed =
+      performance.now() -
+      start;
+
+
+    resultMetaEl.textContent =
+      `${generatedIds.length} tokens · ` +
+      `${(
+        elapsed / 1000
+      ).toFixed(2)} s`;
+
+
+    setStatus(
+      "Listo"
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Needle error:",
+      error
+    );
+
+
+    renderError(
+      error
+    );
+
+
+    resultMetaEl.textContent =
+      "";
+
+
+    setStatus(
+      "Error"
+    );
+
+  } finally {
+
+    running = false;
+
+    runEl.disabled = false;
+
+    queryEl.disabled = false;
+
+    toolsEl.disabled = false;
+
+  }
+
+}
+
+
+/* ============================================================
+   EXAMPLES
+   ============================================================ */
+
+document
+  .querySelectorAll(
+    ".example"
+  )
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          queryEl.value =
+            button.dataset.query;
+
+          queryEl.focus();
+
+        }
+      );
+
+    }
+  );
+
+
+/* ============================================================
+   ENTER
+   ============================================================ */
+
+queryEl.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Enter" &&
+      !event.shiftKey
+    ) {
+
+      event.preventDefault();
+
+      runNeedle();
+
+    }
+
+  }
+);
+
+
+/* ============================================================
+   BUTTON
+   ============================================================ */
+
+runEl.addEventListener(
+  "click",
+  runNeedle
+);
+
+
+/* ============================================================
+   INITIALIZATION
+   ============================================================ */
+
+async function init() {
+
+  try {
+
+    initializeTools();
+
+
+    /*
+     * Tokenizer.
+     */
+
+    await loadTokenizer();
+
+
+    /*
+     * Las sesiones ONNX se crean una sola vez.
+     */
+
+    await loadModels();
+
+
+    ready = true;
+
+
+    queryEl.disabled = false;
+
+    toolsEl.disabled = false;
+
+    runEl.disabled = false;
+
+
+    setStatus(
+      "Modelo listo"
+    );
+
+
+    console.log(
+      "Needle inicializado correctamente."
+    );
+
+
+    console.log(
+      "crossOriginIsolated:",
+      window.crossOriginIsolated
+    );
+
+
+    console.log(
+      "WASM threads:",
+      ort.env.wasm.numThreads
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Initialization error:",
+      error
+    );
+
+
+    setStatus(
+      "Error al cargar"
+    );
+
+
+    renderError(
+      error
+    );
+
+  }
+
+}
+
+
+init();
+
+</script>
+
+
+
+</body>
+</html>
