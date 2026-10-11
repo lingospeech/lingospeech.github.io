@@ -911,13 +911,13 @@ async function loadModels() {
     "Cargando encoder ONNX…"
   );
 
-  //"disabled", "basic", "extended", "all"
+  //"disabled", "basic", "extended", "all", graphOptimizationLevel: "basic"
   encoderSession =
     await ort.InferenceSession.create(
       ENCODER_URL,
 
       {
-        executionProviders: ["wasm"], graphOptimizationLevel: "basic"
+        executionProviders: ["wasm"]
       }
     );
 
@@ -932,7 +932,7 @@ async function loadModels() {
       DECODER_URL,
 
       {
-        executionProviders: ["wasm"], graphOptimizationLevel: "basic"
+        executionProviders: ["wasm"]
       }
     );
 
@@ -1282,54 +1282,107 @@ function decodeTokens(ids) {
    ============================================================ */
 
 function parseToolCall(text) {
-  let value = text.trim();
 
-  // Eliminar marcadores y fences opcionales.
-  value = value
-    .replace(/^<tool_call>\s*/i, "")
-    .replace(/^```(?:json)?\s*/i, "")
-    .replace(/\s*```$/i, "")
-    .trim();
+  let value =
+    text.trim();
 
-  // Primero, intentar parsear la salida completa.
-  // Así se conserva la estructura raíz.
-  try {
-    return JSON.parse(value);
-  } catch {}
 
-  // Fallback si el modelo añade texto alrededor del JSON.
-  const objectStart = value.indexOf("{");
-  const arrayStart = value.indexOf("[");
+  /*
+   * Eliminar markdown accidental.
+   */
 
-  if (objectStart === -1 && arrayStart === -1) {
-    throw new Error("No se encontró JSON en la salida de Needle:\n" + text);
+  value =
+    value
+      .replace(
+        /^```json\s*/i,
+        ""
+      )
+      .replace(
+        /^```\s*/i,
+        ""
+      )
+      .replace(
+        /\s*```$/i,
+        ""
+      )
+      .trim();
+
+
+  /*
+   * Buscar array.
+   */
+
+  const arrayStart =
+    value.indexOf("[");
+
+  const arrayEnd =
+    value.lastIndexOf("]");
+
+
+  if (
+    arrayStart !== -1 &&
+    arrayEnd > arrayStart
+  ) {
+
+    const candidate =
+      value.slice(
+        arrayStart,
+        arrayEnd + 1
+      );
+
+
+    try {
+
+      return JSON.parse(
+        candidate
+      );
+
+    } catch {}
+
   }
 
-  // Elegir la estructura que empieza primero.
+
+  /*
+   * Buscar objeto.
+   */
+
+  const objectStart =
+    value.indexOf("{");
+
+  const objectEnd =
+    value.lastIndexOf("}");
+
+
   if (
     objectStart !== -1 &&
-    (arrayStart === -1 || objectStart < arrayStart)
+    objectEnd > objectStart
   ) {
-    const objectEnd = value.lastIndexOf("}");
 
-    if (objectEnd > objectStart) {
-      return JSON.parse(
-        value.slice(objectStart, objectEnd + 1)
+    const candidate =
+      value.slice(
+        objectStart,
+        objectEnd + 1
       );
-    }
-  } else {
-    const arrayEnd = value.lastIndexOf("]");
 
-    if (arrayEnd > arrayStart) {
+
+    try {
+
       return JSON.parse(
-        value.slice(arrayStart, arrayEnd + 1)
+        candidate
       );
-    }
+
+    } catch {}
+
   }
 
-  throw new Error("Needle no produjo JSON válido:\n" + text);
-}
 
+  throw new Error(
+    "Needle no produjo JSON válido.\n\n" +
+    "Salida original:\n" +
+    text
+  );
+
+}
 
 /* ============================================================
    RESULT RENDER
