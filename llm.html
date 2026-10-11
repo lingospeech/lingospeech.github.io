@@ -1282,106 +1282,52 @@ function decodeTokens(ids) {
    ============================================================ */
 
 function parseToolCall(text) {
+  let value = text.trim();
 
-  let value =
-    text.trim();
+  // Eliminar marcadores y fences opcionales.
+  value = value
+    .replace(/^<tool_call>\s*/i, "")
+    .replace(/^```(?:json)?\s*/i, "")
+    .replace(/\s*```$/i, "")
+    .trim();
 
+  // Primero, intentar parsear la salida completa.
+  // Así se conserva la estructura raíz.
+  try {
+    return JSON.parse(value);
+  } catch {}
 
-  /*
-   * Eliminar markdown accidental.
-   */
+  // Fallback si el modelo añade texto alrededor del JSON.
+  const objectStart = value.indexOf("{");
+  const arrayStart = value.indexOf("[");
 
-  value =
-    value
-      .replace(
-        /^```json\s*/i,
-        ""
-      )
-      .replace(
-        /^```\s*/i,
-        ""
-      )
-      .replace(
-        /\s*```$/i,
-        ""
-      )
-      .trim();
-
-
-  /*
-   * Buscar array.
-   */
-
-  const arrayStart =
-    value.indexOf("[");
-
-  const arrayEnd =
-    value.lastIndexOf("]");
-
-
-  if (
-    arrayStart !== -1 &&
-    arrayEnd > arrayStart
-  ) {
-
-    const candidate =
-      value.slice(
-        arrayStart,
-        arrayEnd + 1
-      );
-
-
-    try {
-
-      return JSON.parse(
-        candidate
-      );
-
-    } catch {}
-
+  if (objectStart === -1 && arrayStart === -1) {
+    throw new Error("No se encontró JSON en la salida de Needle:\n" + text);
   }
 
-
-  /*
-   * Buscar objeto.
-   */
-
-  const objectStart =
-    value.indexOf("{");
-
-  const objectEnd =
-    value.lastIndexOf("}");
-
-
+  // Elegir la estructura que empieza primero.
   if (
     objectStart !== -1 &&
-    objectEnd > objectStart
+    (arrayStart === -1 || objectStart < arrayStart)
   ) {
+    const objectEnd = value.lastIndexOf("}");
 
-    const candidate =
-      value.slice(
-        objectStart,
-        objectEnd + 1
-      );
-
-
-    try {
-
+    if (objectEnd > objectStart) {
       return JSON.parse(
-        candidate
+        value.slice(objectStart, objectEnd + 1)
       );
+    }
+  } else {
+    const arrayEnd = value.lastIndexOf("]");
 
-    } catch {}
-
+    if (arrayEnd > arrayStart) {
+      return JSON.parse(
+        value.slice(arrayStart, arrayEnd + 1)
+      );
+    }
   }
 
-
-  throw new Error(
-    "Needle no produjo JSON válido.\n\n" +
-    "Salida original:\n" +
-    text
-  );
-
+  throw new Error("Needle no produjo JSON válido:\n" + text);
 }
 
 
